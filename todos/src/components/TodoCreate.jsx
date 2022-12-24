@@ -69,7 +69,7 @@ function TodoCreate() {
 
             <div>
                 <button type="button" className="save" onClick={createHandler}>
-                    {!flag ? "등록" : "추가"}                
+                    {flag ? "등록" : "추가"}                
                 </button>
 
                 {flag && <button type="button" className="cancel" onClick={cancelHandler}>취소</button>}

@@ -5,7 +5,7 @@ export function useInpusts(initialState) {
   // 인풋 상태
   const [inputs, setInputs] = useState(initialState);
   
-
+  
   // 변경시
   const onChange = (e) => {
     const { name, value } = e.target;
