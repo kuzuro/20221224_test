@@ -1,10 +1,18 @@
 import { useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { useTodoDispatch } from "../contexts/todo";
+import { useInpusts } from "../hooks/useInpusts";
 
 function TodoCreate() {
 
     const dispatch = useTodoDispatch();
+
+    // 인풋 커스텀 훅
+    const [inputs, onChange, reset] = useInpusts({
+        text : "",
+    }); 
+
+    const { text } = inputs;
 
 
     // 넘버링
@@ -16,30 +24,18 @@ function TodoCreate() {
     // 인풋 활성 여부
     const [flag, setFlag] = useState(false);
 
-    // 에디터 활성 여부
-    const [edit, setEdit] = useState(false);
-
-    // 인풋 값 변경시
-    const onChange = (e) => {        
-        if(inputRef.current.value.length > 0) {
-            setEdit(true);
-        }
-    }
-
-
     // 등록 및 추가
     const createHandler = (e) => {
 
 
-        // 등록 버튼이 클릭시 플래스 true
+        // 등록 버튼이 클릭시 플래그 true
         if(!flag) {
             setFlag(true);
             return;
         }
 
-        // 인풋값이 1자 이상일때만 등록
-        if(inputRef.current.value === "") { 
-            setEdit(false);
+        // text가 1자 이상일때만 등록
+        if(text.length === 0) { 
             return;
         }
 
@@ -59,27 +55,24 @@ function TodoCreate() {
  
         // 초기화
         setFlag(false);
-        setEdit(false);
-        inputRef.current.value = "";
+        reset();
         inputRef.current.focus()        
     }
 
-    const canccelHandler = (e) => { 
+    const cancelHandler = (e) => { 
         setFlag(false);
-        setEdit(false);
-        inputRef.current.value = "";
     }
 
     return (
-        <CreateBlock edit={edit} flag={flag}>
-            <input type="text" onChange={onChange} ref={inputRef}/>
+        <CreateBlock edit={text.length > 0} flag={flag}>
+            <input type="text" name="text" value={text} onChange={onChange} ref={inputRef}/>
 
             <div>
                 <button type="button" className="save" onClick={createHandler}>
                     {!flag ? "등록" : "추가"}                
                 </button>
 
-                {flag && <button type="button" className="cancel" onClick={canccelHandler}>취소</button>}
+                {flag && <button type="button" className="cancel" onClick={cancelHandler}>취소</button>}
             </div>
         </CreateBlock>
     );
@@ -156,10 +149,6 @@ const CreateBlock = styled.div`
             color:#fff;
         }
     }
-
-`;
-
-const BtnBlock = styled.div`
 
 `;
 
