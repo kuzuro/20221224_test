@@ -4,20 +4,17 @@ import { useTodoState } from "../contexts/todo";
 
 function TodoHeader() {
 
-
     // 금일 날짜
     const today = (new Date()).toLocaleDateString("ko-KR", {dateStyle: "full"});
 
-
-    // 카운트
+    // 카운트를 위해
     const todos = useTodoState();
     const doneCnt = todos.filter(todo => todo.done).length;
     const totalCnt = todos.length;
 
-
     return (
         <HeaderBlock>
-            
+
                 <TitleBlock>                    
                     <BsCardChecklist size={20}/> 
                     <p>{today}</p>

@@ -7,20 +7,24 @@ import { useTodoDispatch } from "../contexts/todo";
 function TodoListItem({todo}) {
 
 
+    // 컨텍스트에서 호출
     const dispatch = useTodoDispatch();
 
-    // TodoList에서 받은 todo 처리
 
+    // TodoList에서 받은 todo 처리
     const {id, text, done} = todo;
 
     return (
         <>
             <ItemBlock>
-                <IconBlock done={done} onClick={() => {dispatch({type : "TOGGLE", id : id})}}>
-                   <AiOutlineCheck size={15} color="#cccccc"/>
-                </IconBlock>
+                {/* done에 따라 제어 */}
 
-                <span>{text}</span>
+                <CheckBlock done={done} onClick={() => {dispatch({type : "TOGGLE", id : id})}}>
+                   <AiOutlineCheck size={15} color="#cccccc"/>
+                </CheckBlock>
+
+                
+                <TextBlock done={done}>{text}</TextBlock>
 
                 <DeleteBlock  onClick={() => {dispatch({type : "DELETE", id : id})}}>
                     <AiFillDelete />
@@ -32,7 +36,7 @@ function TodoListItem({todo}) {
 
 }
 
-
+// li 
 const ItemBlock = styled.li`
     font-size:16px;
     padding:5px;
@@ -51,7 +55,8 @@ const ItemBlock = styled.li`
     }
 `;
 
-const IconBlock = styled.div`
+// 체크 아이콘 영역
+const CheckBlock = styled.div`
     width:20px;
     height:20px;
     border-radius: 50%;
@@ -82,6 +87,7 @@ const IconBlock = styled.div`
 
 `;
 
+// 삭제 영역
 const DeleteBlock = styled.div`
 
     svg {
@@ -92,6 +98,14 @@ const DeleteBlock = styled.div`
         fill:#ff1100;
         cursor: pointer;
     }
+`;
+
+// 텍스트
+const TextBlock = styled.span`
+
+    ${({done}) => done && css`
+        color:#ccc;
+    `}
 `;
 
 export default TodoListItem;

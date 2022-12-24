@@ -10,19 +10,40 @@ function TodoCreate() {
     // 넘버링
     const nextId = useRef(3);
 
-    // 포커스 요소
+    // 인풋
     const inputRef = useRef();
-
-
+    
+    // 인풋 활성 여부
+    const [flag, setFlag] = useState(false);
 
     // 에디터 활성 여부
     const [edit, setEdit] = useState(false);
 
+    // 인풋 값 변경시
+    const onChange = (e) => {        
+        if(inputRef.current.value.length > 0) {
+            setEdit(true);
+        }
+    }
 
-    console.log(edit)
-    // 등록
+
+    // 등록 및 추가
     const createHandler = (e) => {
 
+
+        // 등록 버튼이 클릭시 플래스 true
+        if(!flag) {
+            setFlag(true);
+            return;
+        }
+
+        // 인풋값이 1자 이상일때만 등록
+        if(inputRef.current.value === "") { 
+            setEdit(false);
+            return;
+        }
+
+        // 등록
         dispatch({
                 type : "CREATE", 
                 todo : {
@@ -32,16 +53,24 @@ function TodoCreate() {
                 }
         });
 
-        nextId.current += 1;
 
+        // 넘버링 증가
+        nextId.current += 1;
+ 
+        // 초기화
+        setFlag(false);
+        setEdit(false);
         inputRef.current.value = "";
         inputRef.current.focus()
+        
     }
 
     return (
-        <CreateBlock edit={edit}>
-            <input type="text" ref={inputRef}/>
-            <button type="button" onClick={createHandler}>추가</button>
+        <CreateBlock edit={edit} flag={flag}>
+            <input type="text" onChange={onChange} ref={inputRef}/>
+            <button type="button" onClick={createHandler}>
+                {!flag ? "등록" : "추가"}                
+            </button>
         </CreateBlock>
     );
 
@@ -60,6 +89,11 @@ const CreateBlock = styled.div`
         padding:5px;
         border-radius: 5px 5px 0 0;
         border-bottom:0;
+        display:none;
+
+        ${({flag}) => flag && css`
+            display:block;
+        `}
     }
 
     button { 
@@ -67,20 +101,19 @@ const CreateBlock = styled.div`
         outline: none;
         font-size:14px;
         padding:5px;
-        border-radius: 0 0 5px 5px;
+        border-radius: 5px;
         cursor: pointer;
 
-        background:#05f;
-        opacity: 0.8;
-        color:#fff;
+        background:#cccccc;
+           color:#fff;
 
-        :hover {
-            opacity: 0.9;
-        }
+        ${({flag}) => flag && css`            
+            background:#05f;
+        border-radius: 0 0 5px 5px;
+        `}
 
-        :active {
-            opacity: 1;
-        }
+        ${({edit}) => edit && css`
+        `}
     }
 
     

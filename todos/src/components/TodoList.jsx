@@ -5,7 +5,7 @@ import TodoListItem from "./TodoListItem";
 
 function TodoList() {
 
-
+    // 컨텍스트에서 상태 가져오기
     const todos = useTodoState();
 
     return (
