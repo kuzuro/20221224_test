@@ -16,7 +16,7 @@ function Todos() {
                     <TodoList />
 
                     <TodoCreate />
-                    
+
                 </TodoBlock>
             </TodoProvider>
         </>
@@ -33,6 +33,7 @@ const TodoBlock = styled.div`
     flex-direction: column;
     border:1px solid #d1d1d1;
     border-radius: 5px;
+    overflow: hidden;
 `;
 
 export default Todos;

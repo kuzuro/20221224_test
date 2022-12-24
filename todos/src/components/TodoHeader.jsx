@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {BsCardChecklist} from "react-icons/bs";
 import { useTodoState } from "../contexts/todo";
 
@@ -12,6 +12,8 @@ function TodoHeader() {
     const doneCnt = todos.filter(todo => todo.done).length;
     const totalCnt = todos.length;
 
+    const per = doneCnt && totalCnt ? (doneCnt / totalCnt) * 100 : 0;
+
     return (
         <HeaderBlock>
 
@@ -23,6 +25,10 @@ function TodoHeader() {
                 <TodoCount>
                     진행도 : {doneCnt}/{totalCnt}
                 </TodoCount>
+
+                <TodoProgress per={per}>
+                    
+                </TodoProgress>
         </HeaderBlock>
     );
 
@@ -55,6 +61,25 @@ const TodoCount = styled.div`
     font-size:12px;
     margin-top:5px;
     color:#999999;
+`;
+
+
+const TodoProgress = styled.div`
+    width:100%;
+    height:5px;
+    margin-top:5px;
+    background: #eeeeee;
+    border-radius: 5px;
+
+    &::after { 
+        content: "";
+        display: block;    
+        width:${({per}) => per}%;
+        height:5px;
+        background:#05f;
+        border-radius: 5px;
+        transition: 500ms;
+    }
 `;
 
 export default TodoHeader;

@@ -81,19 +81,25 @@ const CreateBlock = styled.div`
     display: flex;
     flex-direction: column;
     padding:10px;
+    overflow: hidden;
     
     input {
-        border:1px solid #d1d1d1;
+        height:0;
+        padding:0;
+        border:none;
+        border-color:#d1d1d1;
         outline: none;
         font-size:14px;
-        padding:5px;
         border-radius: 5px 5px 0 0;
-        border-bottom:0;
-        display:none;
 
         ${({flag}) => flag && css`
-            display:block;
+            height:30px;
+            padding:5px;
+            border:1px solid #d1d1d1;
         `}
+
+        border-bottom:0;
+        transition:0.5s;
     }
 
     button { 
@@ -109,7 +115,8 @@ const CreateBlock = styled.div`
 
         ${({flag}) => flag && css`            
             background:#05f;
-        border-radius: 0 0 5px 5px;
+            border-color:#05f;
+            border-radius: 0 0 5px 5px;
         `}
 
         ${({edit}) => edit && css`

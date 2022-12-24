@@ -22,6 +22,8 @@ function TodoList() {
 const ListBlock = styled.div`
     flex:1;
     border-bottom:1px solid #d1d1d1;
+    
+    position:relative;
 `;
 
 export default TodoList;

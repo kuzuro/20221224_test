@@ -10,23 +10,39 @@ function TodoListItem({todo}) {
     // 컨텍스트에서 호출
     const dispatch = useTodoDispatch();
 
-
     // TodoList에서 받은 todo 처리
     const {id, text, done} = todo;
 
+
+    // 삭제 애니메이션 제어
+    const [deleteFlag, setDeleteFlag] = useState(false);
+
+
+
+    const deleteHandler = (e) => {
+
+        // 삭제 애니메이션
+        setDeleteFlag(true);
+
+        // 0.5초 후 삭제
+        setTimeout(() => {  
+            dispatch({type : "DELETE", id : id});
+        }, 500);
+
+
+    }
+
     return (
         <>
-            <ItemBlock>
-                {/* done에 따라 제어 */}
+            <ItemBlock deleteFlag={deleteFlag}>
 
                 <CheckBlock done={done} onClick={() => {dispatch({type : "TOGGLE", id : id})}}>
                    <AiOutlineCheck size={15} color="#cccccc"/>
                 </CheckBlock>
-
                 
                 <TextBlock done={done}>{text}</TextBlock>
 
-                <DeleteBlock  onClick={() => {dispatch({type : "DELETE", id : id})}}>
+                <DeleteBlock onClick={deleteHandler}>
                     <AiFillDelete />
                 </DeleteBlock>
 
@@ -44,7 +60,6 @@ const ItemBlock = styled.li`
     display: flex;
     justify-content: left;
     align-items: center;
-
     span {
         margin-left:5px;
         flex:1;
@@ -53,6 +68,13 @@ const ItemBlock = styled.li`
     &:hover { 
         background:#fafafa;
     }
+
+    ${({deleteFlag}) => deleteFlag && css`
+        opacity: 0;
+        transform: translateX(500px);
+    `}
+
+    transition: 500ms;
 `;
 
 // 체크 아이콘 영역
