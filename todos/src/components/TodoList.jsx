@@ -19,7 +19,7 @@ function TodoList() {
 }
 
 
-const ListBlock = styled.div`
+const ListBlock = styled.ul`
     flex:1;
     border-bottom:1px solid #d1d1d1;
     
