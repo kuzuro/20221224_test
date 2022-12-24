@@ -61,16 +61,26 @@ function TodoCreate() {
         setFlag(false);
         setEdit(false);
         inputRef.current.value = "";
-        inputRef.current.focus()
-        
+        inputRef.current.focus()        
+    }
+
+    const canccelHandler = (e) => { 
+        setFlag(false);
+        setEdit(false);
+        inputRef.current.value = "";
     }
 
     return (
         <CreateBlock edit={edit} flag={flag}>
             <input type="text" onChange={onChange} ref={inputRef}/>
-            <button type="button" onClick={createHandler}>
-                {!flag ? "등록" : "추가"}                
-            </button>
+
+            <div>
+                <button type="button" className="save" onClick={createHandler}>
+                    {!flag ? "등록" : "추가"}                
+                </button>
+
+                {flag && <button type="button" className="cancel" onClick={canccelHandler}>취소</button>}
+            </div>
         </CreateBlock>
     );
 
@@ -98,36 +108,58 @@ const CreateBlock = styled.div`
             border:1px solid #d1d1d1;
         `}
 
-        border-bottom:0;
         transition:300ms;
 
 
     }
 
-    button { 
-        border:1px solid #d1d1d1;
-        outline: none;
-        font-size:14px;
-        padding:5px;
-        border-radius: 5px;
-        cursor: pointer;
 
-        background:#cccccc;
-           color:#fff;
+    div {
 
-        ${({flag}) => flag && css`     
+        display:flex;
+        justify-content: space-between;
+
+        button.save { 
+            width:100%;
+            border:1px solid #d1d1d1;
+            outline: none;
+            font-size:14px;
+            padding:5px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            background:#cccccc;
+            border-top:0;
+            color:#fff;
+
+            ${({flag}) => flag && css`     
+                width:calc(85% - 5px);
+                border-radius: 0 0 5px 5px;
+            `}
+
+            ${({edit}) => edit && css`     
+                border-color:#05f;  
+                background:#05f;
+            `}
+        }
+
+        button.cancel { 
+            width:15%; border:1px solid #d1d1d1;
+            outline: none;
+            font-size:14px;
+            padding:5px;
             border-radius: 0 0 5px 5px;
-        `}
+            cursor: pointer;
 
-        ${({edit}) => edit && css`     
-            border-color:#05f;  
-            background:#05f;
-        `}
+            background:#cccccc;
+            border-top:0;
+            color:#fff;
+        }
     }
 
-    
-        
+`;
 
+const BtnBlock = styled.div`
 
 `;
 
