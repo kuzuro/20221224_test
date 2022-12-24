@@ -99,7 +99,9 @@ const CreateBlock = styled.div`
         `}
 
         border-bottom:0;
-        transition:0.5s;
+        transition:300ms;
+
+
     }
 
     button { 
@@ -113,13 +115,13 @@ const CreateBlock = styled.div`
         background:#cccccc;
            color:#fff;
 
-        ${({flag}) => flag && css`            
-            background:#05f;
-            border-color:#05f;
+        ${({flag}) => flag && css`     
             border-radius: 0 0 5px 5px;
         `}
 
-        ${({edit}) => edit && css`
+        ${({edit}) => edit && css`     
+            border-color:#05f;  
+            background:#05f;
         `}
     }
 

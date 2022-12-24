@@ -35,17 +35,13 @@ function TodoListItem({todo}) {
     return (
         <>
             <ItemBlock deleteFlag={deleteFlag}>
-
                 <CheckBlock done={done} onClick={() => {dispatch({type : "TOGGLE", id : id})}}>
                    <AiOutlineCheck size={15} color="#cccccc"/>
-                </CheckBlock>
-                
+                </CheckBlock>                
                 <TextBlock done={done}>{text}</TextBlock>
-
                 <DeleteBlock onClick={deleteHandler}>
                     <AiFillDelete />
                 </DeleteBlock>
-
             </ItemBlock>
         </>
     );
@@ -104,9 +100,6 @@ const CheckBlock = styled.div`
             fill:#05f;
         }
     `}
-
-
-
 `;
 
 // 삭제 영역

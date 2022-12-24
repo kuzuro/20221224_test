@@ -67,7 +67,7 @@ export function TodoProvider({children}) {
     return (
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
-                {children}
+                {children}{/* TodoProvider로 감싼 영역의 자식요소가 위치함 */}
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
     );
